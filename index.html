@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#FFD700">
+    <meta name="description" content="Arroces del Barrio - Pide tu arroz favorito por WhatsApp en segundos">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Arroces">
+
+    <title>Arroces del Barrio</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Header con Imagen de Fondo -->
+    <header class="header header-video"
+        style="background-image: url('https://images.unsplash.com/photo-1512058564366-18510be2db19?w=800&q=80');">
+        <div class="header-video-overlay"></div>
+
+        <!-- Contenido del Header superpuesto -->
+        <div class="header-content">
+            <div class="logo-section">
+                <h1 class="logo">🍚 Arroces del Barrio</h1>
+                <p class="tagline">Pedidos rápidos · Precios en COP</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn-outline" id="installBtn">
+                    <span class="icon">⬇️</span> Descargar
+                </button>
+                <a href="#menu" class="btn-outline">
+                    <span class="icon">📋</span> Menú
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2 class="hero-title">Pide en WhatsApp en segundos</h2>
+            <p class="hero-subtitle">Arroces desde <span class="price-highlight">$6.000</span></p>
+            <p class="hero-description">Selecciona tus platos favoritos y envía tu pedido directamente a nuestro
+                WhatsApp</p>
+        </div>
+    </section>
+
+    <!-- Quick Access Cards -->
+    <section class="quick-access">
+        <div class="quick-cards">
+            <a href="#arroz-mixto" class="quick-card">
+                <span class="quick-icon">🍛</span>
+                <span class="quick-label">Arroz Mixto</span>
+            </a>
+            <a href="#arroz-camaron" class="quick-card">
+                <span class="quick-icon">🦐</span>
+                <span class="quick-label">Arroz Camarón</span>
+            </a>
+            <a href="#arroz-cerdo" class="quick-card">
+                <span class="quick-icon">🥓</span>
+                <span class="quick-label">Arroz Cerdo</span>
+            </a>
+            <a href="#cazuela" class="quick-card">
+                <span class="quick-icon">🦞</span>
+                <span class="quick-label">Cazuela</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Order Form -->
+    <section class="order-form">
+        <div class="form-card">
+            <h3 class="form-title">📱 Datos del pedido</h3>
+            <div class="form-group">
+                <label for="customerName">Tu nombre (opcional)</label>
+                <input type="text" id="customerName" placeholder="Ej: María">
+            </div>
+            <div class="form-group">
+                <label for="orderNotes">Notas adicionales</label>
+                <input type="text" id="orderNotes" placeholder="Ej: Sin cebolla, para llevar...">
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+        <h3 class="section-title">Menú</h3>
+        <p class="section-subtitle">Toca "Añadir" para armar tu pedido</p>
+
+        <!-- Arroz Mixto -->
+        <div class="menu-item-card" id="arroz-mixto">
+            <img class="menu-item-img"
+                src="https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=400"
+                alt="Arroz Mixto">
+            <div class="menu-item-content">
+                <div class="menu-item-info">
+                    <h4 class="item-name">🍛 Arroz mixto</h4>
+                    <p class="item-description">Pollo, cerdo y camarón</p>
+                </div>
+                <div class="menu-item-action">
+                    <span class="item-price">$6.000</span>
+                    <button class="btn-add" onclick="addToCart('Arroz mixto', 6000)">
+                        <span>+</span> Añadir
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Arroz de Camarón -->
+        <div class="menu-item-card" id="arroz-camaron">
+            <img class="menu-item-img"
+                src="https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400"
+                alt="Arroz de Camarón">
+            <div class="menu-item-content">
+                <div class="menu-item-info">
+                    <h4 class="item-name">🦐 Arroz de camarón</h4>
+                    <p class="item-description">Camarones frescos del pacífico</p>
+                </div>
+                <div class="menu-item-action">
+                    <span class="item-price">$6.000</span>
+                    <button class="btn-add" onclick="addToCart('Arroz de camarón', 6000)">
+                        <span>+</span> Añadir
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Arroz con Cerdo -->
+        <div class="menu-item-card" id="arroz-cerdo">
+            <img class="menu-item-img"
+                src="https://images.pexels.com/photos/2313686/pexels-photo-2313686.jpeg?auto=compress&cs=tinysrgb&w=400"
+                alt="Arroz con Cerdo">
+            <div class="menu-item-content">
+                <div class="menu-item-info">
+                    <h4 class="item-name">🥓 Arroz con cerdo</h4>
+                    <p class="item-description">Cerdo adobado crujiente</p>
+                </div>
+                <div class="menu-item-action">
+                    <span class="item-price">$6.000</span>
+                    <button class="btn-add" onclick="addToCart('Arroz con cerdo', 6000)">
+                        <span>+</span> Añadir
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cazuela de Mariscos -->
+        <div class="menu-item-card" id="cazuela">
+            <img class="menu-item-img"
+                src="https://images.pexels.com/photos/8969237/pexels-photo-8969237.jpeg?auto=compress&cs=tinysrgb&w=400"
+                alt="Cazuela de Mariscos">
+            <div class="menu-item-content">
+                <div class="menu-item-info">
+                    <h4 class="item-name">🦞 Cazuela de mariscos</h4>
+                    <p class="item-description">Mezcla de mariscos frescos</p>
+                </div>
+                <div class="menu-item-action">
+                    <span class="item-price">$10.000</span>
+                </div>
+            </div>
+        </div>
+        <div class="size-selector">
+            <button class="size-btn active" onclick="selectSize(this, 10000)">Pequeña - $10.000</button>
+            <button class="size-btn" onclick="selectSize(this, 15000)">Grande - $15.000</button>
+        </div>
+        <button class="btn-add btn-add-full" onclick="addCazuela()">
+            <span>+</span> Añadir
+        </button>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h3>🛒 Tu Canasta</h3>
+                <button class="close-btn" onclick="closeCart()">✕</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Items dinámicos -->
+            </div>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">$0</span>
+            </div>
+            <button class="btn-whatsapp" onclick="sendToWhatsApp()">
+                <span>💬</span> Enviar pedido por WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="#menu" class="nav-item">
+            <span class="nav-icon">📋</span>
+            <span class="nav-label">Menú</span>
+        </a>
+        <a href="https://maps.google.com/?q=Riohacha,La+Guajira" target="_blank" class="nav-item">
+            <span class="nav-icon">📍</span>
+            <span class="nav-label">Riohacha</span>
+        </a>
+        <button class="nav-item nav-cart" onclick="openCart()">
+            <span class="nav-icon">🛒</span>
+            <span class="nav-label">Canasta</span>
+            <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+    </nav>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
