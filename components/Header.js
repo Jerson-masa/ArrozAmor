@@ -1,16 +1,39 @@
 'use client';
 
+import { useState, useRef } from 'react';
+
 export default function Header() {
+    const [isMuted, setIsMuted] = useState(true);
+    const videoRef = useRef(null);
+
+    const toggleSound = () => {
+        if (videoRef.current) {
+            videoRef.current.muted = !videoRef.current.muted;
+            setIsMuted(videoRef.current.muted);
+        }
+    };
+
     return (
-        <header
-            className="header header-video"
-            style={{
-                backgroundImage: "url('https://images.unsplash.com/photo-1512058564366-18510be2db19?w=800&q=80')",
-                backgroundSize: 'cover',
-                backgroundPosition: 'center'
-            }}
-        >
+        <header className="header header-video header-video-large">
+            {/* Video de fondo */}
+            <video
+                ref={videoRef}
+                className="header-video-bg"
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=800&q=80"
+            >
+                <source src="/header-video.mp4" type="video/mp4" />
+            </video>
+
             <div className="header-video-overlay"></div>
+
+            {/* Botón de sonido */}
+            <button className="video-sound-btn" onClick={toggleSound} aria-label="Toggle sound">
+                {isMuted ? '🔇' : '🔊'}
+            </button>
 
             <div className="header-content">
                 <div className="logo-section">

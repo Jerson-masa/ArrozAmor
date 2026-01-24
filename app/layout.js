@@ -13,6 +13,9 @@ export const metadata = {
   description: "Pide tu arroz favorito por WhatsApp en segundos",
   manifest: "/manifest.json",
   themeColor: "#FFD700",
+  verification: {
+    google: "zDiIwQLSQenw4K04qNCq1aubnnUJbHI2VBEmGIJP5Wo",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
