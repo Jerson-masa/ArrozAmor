@@ -46,7 +46,7 @@ export default function Chatbot() {
                 { type: 'bot', text: 'Abriendo Google Maps...' }
                 ]);
                 setTimeout(() => {
-                    window.open('https://maps.google.com/?q=Riohacha,La+Guajira,Colombia', '_blank');
+                    window.open('https://maps.app.goo.gl/575iF12ogpKgKcz87', '_blank');
                 }, 1500);
                 break;
             case 'reset':

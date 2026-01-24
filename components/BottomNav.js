@@ -8,7 +8,7 @@ export default function BottomNav() {
                 <span className="nav-label">Menú</span>
             </a>
             <a
-                href="https://maps.google.com/?q=Riohacha,La+Guajira,Colombia"
+                href="https://maps.app.goo.gl/575iF12ogpKgKcz87"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="nav-item"
