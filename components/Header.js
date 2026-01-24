@@ -23,9 +23,9 @@ export default function Header() {
                 muted
                 loop
                 playsInline
-                poster="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=800&q=80"
+                poster="https://res.cloudinary.com/divyzn2hg/video/upload/so_0/v1769295579/WhatsApp_Video_2026-01-24_at_1.24.28_PM_f3oyyb.jpg"
             >
-                <source src="/header-video.mp4" type="video/mp4" />
+                <source src="https://res.cloudinary.com/divyzn2hg/video/upload/v1769295579/WhatsApp_Video_2026-01-24_at_1.24.28_PM_f3oyyb.mp4" type="video/mp4" />
             </video>
 
             <div className="header-video-overlay"></div>
