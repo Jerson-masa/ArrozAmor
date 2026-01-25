@@ -175,6 +175,17 @@ body {
     border-color: var(--primary);
 }
 
+.btn-outline svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover svg {
+    transform: translateY(-1px);
+}
+
 .icon {
     font-size: 1rem;
 }
@@ -670,6 +681,21 @@ body {
 
 .nav-icon {
     font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    transition: all 0.3s ease;
+}
+
+.nav-item:hover .nav-icon svg {
+    transform: scale(1.15);
+    stroke: var(--primary-dark);
 }
 
 .nav-label {

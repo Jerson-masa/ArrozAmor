@@ -35,10 +35,23 @@
             </div>
             <div class="header-actions">
                 <button class="btn-outline" id="installBtn">
-                    <span class="icon">⬇️</span> Descargar
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    <span>Descargar</span>
                 </button>
                 <a href="#menu" class="btn-outline">
-                    <span class="icon">📋</span> Menú
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                        <line x1="8" y1="7" x2="16" y2="7" />
+                        <line x1="8" y1="11" x2="14" y2="11" />
+                    </svg>
+                    <span>Menú</span>
                 </a>
             </div>
         </div>
@@ -200,15 +213,36 @@
     <!-- Bottom Navigation -->
     <nav class="bottom-nav">
         <a href="#menu" class="nav-item">
-            <span class="nav-icon">📋</span>
+            <span class="nav-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                    <line x1="8" y1="7" x2="16" y2="7" />
+                    <line x1="8" y1="11" x2="14" y2="11" />
+                </svg>
+            </span>
             <span class="nav-label">Menú</span>
         </a>
         <a href="https://maps.app.goo.gl/575iF12ogpKgKcz87" target="_blank" class="nav-item">
-            <span class="nav-icon">📍</span>
-            <span class="nav-label">Riohacha</span>
+            <span class="nav-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                </svg>
+            </span>
+            <span class="nav-label">Ubicación</span>
         </a>
         <button class="nav-item nav-cart" onclick="openCart()">
-            <span class="nav-icon">🛒</span>
+            <span class="nav-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                </svg>
+            </span>
             <span class="nav-label">Canasta</span>
             <span class="cart-badge" id="cartBadge">0</span>
         </button>
