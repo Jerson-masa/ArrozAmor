@@ -12,23 +12,23 @@ const menuItems = [
         emoji: '🍛',
         description: 'Pollo, cerdo y camarón',
         price: 6000,
-        image: 'https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=400'
+        image: '/images/arroz-mixto.png'
     },
     {
         id: 'arroz-camaron',
-        name: 'Arroz de camarón',
+        name: 'Arroz con Camarón',
         emoji: '🦐',
         description: 'Camarones frescos del pacífico',
         price: 6000,
-        image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400'
+        image: '/images/arroz-camaron.png'
     },
     {
         id: 'arroz-cerdo',
-        name: 'Arroz con cerdo',
+        name: 'Arroz con Cerdo',
         emoji: '🥓',
         description: 'Cerdo adobado crujiente',
         price: 6000,
-        image: 'https://images.pexels.com/photos/2313686/pexels-photo-2313686.jpeg?auto=compress&cs=tinysrgb&w=400'
+        image: '/images/arroz-cerdo.png'
     }
 ];
 
@@ -45,7 +45,10 @@ export default function Menu() {
 
     return (
         <section className="menu" id="menu-section">
-            <h3 className="section-title">🍚 Menú</h3>
+            <h3 className="section-title">
+                <img src="/images/menu-icon.png" alt="Menú" className="section-icon-img" />
+                Menú
+            </h3>
             <p className="section-subtitle">Conoce nuestros deliciosos platos</p>
 
             {menuItems.map((item) => (
@@ -56,7 +59,7 @@ export default function Menu() {
             <div className="menu-item-card" id="cazuela">
                 <img
                     className="menu-item-img"
-                    src="https://images.pexels.com/photos/8969237/pexels-photo-8969237.jpeg?auto=compress&cs=tinysrgb&w=400"
+                    src="/images/cazuela.png"
                     alt="Cazuela de Mariscos"
                 />
                 <div className="menu-item-content">
@@ -85,9 +88,7 @@ export default function Menu() {
                 </button>
             </div>
 
-            <button className="btn-add btn-add-full" onClick={handleCazuelaAdd}>
-                <span>+</span> Añadir
-            </button>
+            {/* Button removed */}
         </section>
     );
 }

@@ -75,14 +75,16 @@ export default function Chatbot() {
                 onClick={() => setIsOpen(!isOpen)}
                 aria-label="Abrir chat"
             >
-                {isOpen ? '✕' : '💬'}
+                {isOpen ? '✕' : <img src="/lobster-chef-v2.png" alt="Chat" className="chatbot-icon-img" />}
             </button>
 
             {/* Chat Window */}
             {isOpen && (
                 <div className="chatbot-window">
                     <div className="chatbot-header">
-                        <div className="chatbot-avatar">🍚</div>
+                        <div className="chatbot-avatar">
+                            <img src="/lobster-chef-v2.png" alt="Chef Avatar" className="chatbot-avatar-img" />
+                        </div>
                         <div className="chatbot-info">
                             <h4>Arroz Amor</h4>
                             <span className="chatbot-status">En línea</span>

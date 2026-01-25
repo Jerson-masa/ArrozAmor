@@ -26,9 +26,7 @@ export default function MenuItem({ id, name, emoji, description, price, image })
                 </div>
                 <div className="menu-item-action">
                     <span className="item-price">${price.toLocaleString()}</span>
-                    <button className="btn-add" onClick={handleAdd}>
-                        <span>+</span> Añadir
-                    </button>
+                    {/* Button removed */}
                 </div>
             </div>
         </div>

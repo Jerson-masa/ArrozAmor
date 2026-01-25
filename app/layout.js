@@ -22,8 +22,9 @@ export const metadata = {
     title: "Arroces",
   },
   icons: {
-    icon: "/icons/icon-192.png",
-    apple: "/icons/icon-192.png",
+    icon: "/icons/icon-192.png?v=4",
+    apple: "/icons/icon-192.png?v=4",
+    shortcut: "/icons/icon-192.png?v=4",
   },
 };
 

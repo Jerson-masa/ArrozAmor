@@ -30,13 +30,31 @@ html {
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: url('/images/tiger-bg.png');
-    background-size: 300px;
+    /* Updated Tiger Background v2 */
+    background: url('/images/tiger-bg-v2.png');
+    background-size: 800px;
+    /* Large, bold patterns */
     background-attachment: fixed;
     color: var(--text-primary);
     line-height: 1.5;
     padding-bottom: 80px;
     -webkit-tap-highlight-color: transparent;
+    animation: slither 60s linear infinite;
+    /* Snake-like movement */
+}
+
+@keyframes slither {
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 100px 100px;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
 }
 
 /* ===== Header ===== */
@@ -76,10 +94,13 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.8);
-    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    background: rgba(0, 0, 0, 0.75);
+    /* Darker background */
     backdrop-filter: blur(10px);
     font-size: 1.5rem;
+    color: #FFFFFF;
+    /* Explicit white color for the icon */
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
@@ -172,46 +193,94 @@ body {
     margin: 0 auto;
 }
 
+/* Updated Header Styles */
 .logo {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.tagline {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    margin-top: 2px;
+.logo-full {
+    height: 120px;
+    /* Increased size */
+    width: 120px;
+    object-fit: cover;
+    /* Ensures it fills the circle */
+    border-radius: 50%;
+    /* Makes it round */
+    border: 3px solid #FFFFFF;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    background-color: #fff;
+    /* Ensure white background for transparency */
+}
+
+.logo-full:hover {
+    transform: scale(1.05) rotate(-5deg);
+}
+
+.tagline-gourmet {
+    font-size: 1.1rem;
+    /* Made bigger */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+    color: #FFFFFF;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.tagline-gourmet em {
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.price-badge {
+    background: #D4FF00 !important;
+    /* Matches .price-highlight */
+    color: #000000 !important;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(212, 255, 0, 0.5);
+    text-shadow: none;
+    display: inline-block;
+    border: 2px solid #FFFFFF;
 }
 
 .header-actions {
     display: flex;
-    gap: 8px;
+    gap: 10px;
 }
 
 .btn-outline {
     display: flex;
     align-items: center;
-    gap: 4px;
-    padding: 8px 12px;
-    border: 1px solid var(--border);
+    gap: 6px;
+    padding: 10px 16px;
+    border: 2px solid rgba(255, 255, 255, 0.8);
     border-radius: var(--radius-sm);
-    background: transparent;
-    color: var(--text-primary);
-    font-size: 0.8rem;
-    font-weight: 500;
+    background: rgba(255, 255, 255, 0.9);
+    /* White background */
+    color: #000000;
+    /* Black text */
+    font-size: 0.9rem;
+    font-weight: 700;
     cursor: pointer;
     transition: var(--transition);
     text-decoration: none;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .btn-outline:hover {
-    background: var(--bg);
-    border-color: var(--primary);
-}
-
-.icon {
-    font-size: 1rem;
+    background: #FFFFFF;
+    color: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* ===== Hero Section ===== */
@@ -285,7 +354,8 @@ body {
 
 .quick-cards {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 columns for 2x2 layout */
     gap: 12px;
 }
 
@@ -400,11 +470,7 @@ body {
     gap: 8px;
 }
 
-.section-title::before {
-    content: '🐯';
-    font-size: 1.8rem;
-    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.8));
-}
+/* Tiger emoji removed */
 
 .section-subtitle {
     font-size: 0.9rem;
@@ -414,54 +480,81 @@ body {
 }
 
 .menu-item-card {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: #111827;
+    /* Almost black/dark blue, fully opaque */
     border-radius: var(--radius);
-    margin-bottom: 16px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     overflow: hidden;
     transition: var(--transition);
+    position: relative;
+    padding-bottom: 60px;
+    /* Space for content at bottom */
 }
 
 .menu-item-card:hover {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(30, 41, 59, 1);
     transform: scale(1.02);
     box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
 }
 
 .menu-item-img {
-    width: 100%;
-    height: 150px;
+    width: 300px;
+    /* Maximized Size */
+    height: 300px;
     object-fit: cover;
     display: block;
+    border-radius: 50%;
+    margin: 20px auto;
+    border: 4px solid #FFFFFF;
+    /* Levitation shadow: larger offset and blur */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    /* Spin like a whirlpool (flat) */
+    animation: spin-flat 20s linear infinite;
+}
+
+@keyframes spin-flat {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .menu-item-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px;
+    padding: 0 20px 20px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(17, 24, 39, 1) 0%, rgba(17, 24, 39, 0) 100%);
 }
 
 .menu-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(30, 41, 59, 0.95);
+    /* Dark blue-gray matte */
+    /* Whiter background */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     padding: 16px;
     border-radius: var(--radius);
     margin-bottom: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     transition: var(--transition);
 }
 
 .menu-item:hover {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(30, 41, 59, 1);
     transform: scale(1.02);
     box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
 }
@@ -471,13 +564,13 @@ body {
     font-weight: 700;
     margin-bottom: 4px;
     color: #FFFFFF;
-    text-shadow: 0 0 8px rgba(0, 0, 0, 0.8), 1px 1px 2px rgba(0, 0, 0, 0.9);
+    /* White text for dark background */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .item-description {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.85);
-    text-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
+    display: none;
+    /* Hide Description as requested */
 }
 
 .menu-item-action {
@@ -488,10 +581,16 @@ body {
 }
 
 .item-price {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #FFFFFF;
-    text-shadow: 0 0 8px rgba(0, 0, 0, 0.8), 1px 1px 2px rgba(0, 0, 0, 0.9);
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #000000;
+    /* No change needed for item price color specifically, checking menu-item styles next */
+    text-shadow: none;
+    background: #D4FF00;
+    padding: 6px 14px;
+    border-radius: 50px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #FFFFFF;
 }
 
 .btn-add {
@@ -1096,5 +1195,69 @@ body {
         width: calc(100vw - 40px);
         right: 20px;
         left: 20px;
+    }
+}
+
+.chatbot-icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.chatbot-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.chatbot-trigger {
+    padding: 0;
+    /* Remove padding to fit image nicely */
+    border: 3px solid #FFFFFF;
+    background: #FFFFFF;
+    /* White background for the circle */
+    overflow: hidden;
+}
+
+.quick-img {
+    width: 130px;
+    /* Even Larger size */
+    height: 130px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 12px;
+    /* Levitation shadow */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    border: 2px solid #FFFFFF;
+    animation: spin-flat 20s linear infinite;
+}
+
+.quick-card:hover .quick-img {
+    animation-duration: 5s;
+    /* Speed up on hover */
+    transform: scale(1.1);
+}
+
+.section-icon-img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+    animation: bounce-gentle 3s infinite;
+    border-radius: 18px;
+    /* Semi-square, almost round */
+}
+
+@keyframes bounce-gentle {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
     }
 }

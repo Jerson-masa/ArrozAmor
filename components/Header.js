@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 export default function Header() {
     const [isMuted, setIsMuted] = useState(true);
@@ -10,6 +10,38 @@ export default function Header() {
         if (videoRef.current) {
             videoRef.current.muted = !videoRef.current.muted;
             setIsMuted(videoRef.current.muted);
+        }
+    };
+
+    const [deferredPrompt, setDeferredPrompt] = useState(null);
+
+    useEffect(() => {
+        const handler = (e) => {
+            e.preventDefault();
+            setDeferredPrompt(e);
+        };
+        window.addEventListener('beforeinstallprompt', handler);
+        return () => window.removeEventListener('beforeinstallprompt', handler);
+    }, []);
+
+    const handleInstallClick = async () => {
+        if (!deferredPrompt) {
+            // Fallback or instructions for iOS
+            alert('Para instalar: \niOS: Pulsa compartir y "Añadir a inicio" \nAndroid: "Añadir a pantalla de inicio" en el menú');
+            return;
+        }
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+            setDeferredPrompt(null);
+        }
+    };
+
+    const scrollToMenu = (e) => {
+        e.preventDefault();
+        const menuSection = document.getElementById('menu-section');
+        if (menuSection) {
+            menuSection.scrollIntoView({ behavior: 'smooth' });
         }
     };
 
@@ -50,15 +82,15 @@ export default function Header() {
             <div className="header-content">
                 <div className="logo-section">
                     <h1 className="logo">
-                        <img src="/lobster-chef.png" alt="Chef Langosta" className="logo-icon" />
-                        Arroz Amor
+                        <img src="/lobster-chef-v2.png" alt="Chef Langosta - Arroz Amor" className="logo-full" />
+                        {/* Arroz Amor */}
                     </h1>
                     <p className="tagline tagline-gourmet">
-                        <em>Calidad y Sazón Gourmet</em> · <span className="price-badge">desde $6.000</span>
+                        <em>Calidad y Sazón Gourmet</em> <span className="price-badge">desde $6.000</span>
                     </p>
                 </div>
                 <div className="header-actions">
-                    <button className="btn-outline" id="installBtn">
+                    <button className="btn-outline" id="installBtn" onClick={handleInstallClick}>
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                             <polyline points="7 10 12 15 17 10" />
@@ -66,7 +98,7 @@ export default function Header() {
                         </svg>
                         <span>Descargar</span>
                     </button>
-                    <a href="#menu" className="btn-outline">
+                    <a href="#menu-section" className="btn-outline" onClick={scrollToMenu}>
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
                             <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
