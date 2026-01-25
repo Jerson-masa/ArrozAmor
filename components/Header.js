@@ -49,8 +49,13 @@ export default function Header() {
 
             <div className="header-content">
                 <div className="logo-section">
-                    <h1 className="logo">🍚 Arroz Amor</h1>
-                    <p className="tagline">Pedidos rápidos · Precios en COP</p>
+                    <h1 className="logo">
+                        <img src="/lobster-chef.png" alt="Chef Langosta" className="logo-icon" />
+                        Arroz Amor
+                    </h1>
+                    <p className="tagline tagline-gourmet">
+                        <em>Calidad y Sazón Gourmet</em> · <span className="price-badge">desde $6.000</span>
+                    </p>
                 </div>
                 <div className="header-actions">
                     <button className="btn-outline" id="installBtn">
