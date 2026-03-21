@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
 import { ToastProvider } from "@/context/ToastContext";
+import { AdminProvider } from "@/context/AdminContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -9,17 +10,17 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Arroz Amor",
-  description: "Pide tu arroz favorito por WhatsApp en segundos",
+  title: "LocaleComer - Tu Marketplace Local de Colombia",
+  description: "Encuentra productos y servicios locales cerca de ti. Compra y vende en tu ciudad con LocaleComer.",
   manifest: "/manifest.json",
-  themeColor: "#FFD700",
+  themeColor: "#F97316",
   verification: {
     google: "zDiIwQLSQenw4K04qNCq1aubnnUJbHI2VBEmGIJP5Wo",
   },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Arroces",
+    title: "LocaleComer",
   },
   icons: {
     icon: "/icons/icon-192.png?v=4",
@@ -33,18 +34,20 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: "#FFD700",
+  themeColor: "#F97316",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <body className={inter.variable}>
-        <CartProvider>
-          <ToastProvider>
-            {children}
-          </ToastProvider>
-        </CartProvider>
+        <AdminProvider>
+          <CartProvider>
+            <ToastProvider>
+              {children}
+            </ToastProvider>
+          </CartProvider>
+        </AdminProvider>
       </body>
     </html>
   );

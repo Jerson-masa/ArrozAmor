@@ -1,9 +1,9 @@
 export default function QuickAccess() {
     const items = [
-        { href: '#arroz-mixto', image: '/images/arroz-mixto.png', label: 'Arroz Mixto' },
-        { href: '#arroz-camaron', image: '/images/arroz-camaron.png', label: 'Arroz con Camarón' },
-        { href: '#arroz-cerdo', image: '/images/arroz-cerdo.png', label: 'Arroz con Cerdo' },
-        { href: '#cazuela', image: '/images/cazuela.png', label: 'Cazuela' }
+        { href: '#arroz-mixto', image: '/images/arroz-mixto.webp', label: 'Arroz Mixto' },
+        { href: '#arroz-camaron', image: '/images/arroz-camaron.webp', label: 'Arroz con Camarón' },
+        { href: '#arroz-cerdo', image: '/images/arroz-cerdo.webp', label: 'Arroz con Cerdo' },
+        { href: '#cazuela', image: '/images/cazuela.webp', label: 'Cazuela' }
     ];
 
     return (

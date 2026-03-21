@@ -31,7 +31,7 @@ html {
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     /* Updated Tiger Background v2 */
-    background: url('/images/tiger-bg-v2.png');
+    background: url('/images/tiger-bg-v2.webp');
     background-size: 800px;
     /* Large, bold patterns */
     background-attachment: fixed;
@@ -1259,5 +1259,442 @@ body {
 
     50% {
         transform: translateY(-5px);
+    }
+}
+
+/* ===== TopBar Estilo Etsy ===== */
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #FFFFFF;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    padding: 10px 16px;
+}
+
+.topbar-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Logo */
+.topbar-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    flex-shrink: 0;
+}
+
+.logo-local {
+    color: #1A1A1A;
+}
+
+.logo-ecomer {
+    color: #F97316;
+    background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Selector de Región */
+.topbar-region {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.region-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: transparent;
+    border: 1.5px solid #E5E7EB;
+    border-radius: 24px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: #374151;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.region-btn:hover {
+    border-color: #F97316;
+    background: #FFF7ED;
+}
+
+.region-btn svg {
+    color: #F97316;
+    flex-shrink: 0;
+}
+
+.region-text {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.region-arrow {
+    transition: transform 0.2s ease;
+}
+
+.region-arrow.open {
+    transform: rotate(180deg);
+}
+
+/* Dropdown de Región */
+.region-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 280px;
+    background: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    padding: 16px;
+    z-index: 1001;
+    animation: dropdown-fade 0.2s ease;
+}
+
+@keyframes dropdown-fade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.region-dropdown-header {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+.region-dropdown-header h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1F2937;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.region-select-group {
+    margin-bottom: 12px;
+}
+
+.region-select-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #6B7280;
+    margin-bottom: 6px;
+}
+
+.region-select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid #E5E7EB;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #1F2937;
+    background: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+}
+
+.region-select:focus {
+    outline: none;
+    border-color: #F97316;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}
+
+.region-select:hover {
+    border-color: #F97316;
+}
+
+/* Buscador */
+.topbar-search {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    border: 2px solid #1A1A1A;
+    border-radius: 30px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.topbar-search:focus-within {
+    border-color: #F97316;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}
+
+.search-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    font-size: 0.95rem;
+    color: #1F2937;
+    background: transparent;
+}
+
+.search-input::placeholder {
+    color: #9CA3AF;
+}
+
+.search-input:focus {
+    outline: none;
+}
+
+.search-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 44px;
+    background: #F97316;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.search-btn svg {
+    color: #FFFFFF;
+}
+
+.search-btn:hover {
+    background: #EA580C;
+}
+
+/* Acciones */
+.topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #374151;
+    transition: all 0.2s ease;
+    position: relative;
+    border-radius: 8px;
+}
+
+.action-btn:hover {
+    background: #F3F4F6;
+    color: #1A1A1A;
+}
+
+.action-btn svg {
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover svg {
+    transform: scale(1.1);
+}
+
+.action-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.action-badge {
+    position: absolute;
+    top: 2px;
+    right: 6px;
+    min-width: 18px;
+    height: 18px;
+    background: #F97316;
+    color: #FFFFFF;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+}
+
+/* Login Dropdown */
+.topbar-login {
+    position: relative;
+}
+
+.login-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 260px;
+    background: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    z-index: 1001;
+    animation: dropdown-fade 0.2s ease;
+}
+
+.login-dropdown-header {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.login-dropdown-header h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1F2937;
+    margin-bottom: 4px;
+}
+
+.login-dropdown-header p {
+    font-size: 0.8rem;
+    color: #6B7280;
+}
+
+.login-submit-btn {
+    width: 100%;
+    padding: 12px 16px;
+    background: #1A1A1A;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    margin-bottom: 10px;
+}
+
+.login-submit-btn:hover {
+    background: #374151;
+    transform: translateY(-1px);
+}
+
+.register-btn {
+    width: 100%;
+    padding: 12px 16px;
+    background: transparent;
+    color: #1A1A1A;
+    border: 2px solid #E5E7EB;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.register-btn:hover {
+    border-color: #1A1A1A;
+    background: #F9FAFB;
+}
+
+/* Responsive TopBar */
+@media (max-width: 768px) {
+    .topbar-container {
+        flex-wrap: wrap;
+    }
+
+    .topbar-logo {
+        font-size: 1.3rem;
+    }
+
+    .topbar-search {
+        order: 3;
+        width: 100%;
+        min-width: unset;
+        margin-top: 8px;
+    }
+
+    .topbar-actions {
+        gap: 0;
+    }
+
+    .action-btn {
+        padding: 8px;
+    }
+
+    .action-label {
+        display: none;
+    }
+
+    .region-text {
+        max-width: 100px;
+        font-size: 0.75rem;
+    }
+
+    .region-dropdown {
+        position: fixed;
+        left: 16px;
+        right: 16px;
+        width: auto;
+        min-width: unset;
+    }
+
+    .login-dropdown {
+        position: fixed;
+        left: 16px;
+        right: 16px;
+        width: auto;
+        min-width: unset;
+    }
+}
+
+@media (max-width: 480px) {
+    .topbar {
+        padding: 8px 12px;
+    }
+
+    .topbar-logo {
+        font-size: 1.1rem;
+    }
+
+    .region-btn {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+
+    .region-text {
+        max-width: 70px;
+    }
+
+    .search-input {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+
+    .search-btn {
+        width: 42px;
+        height: 40px;
     }
 }

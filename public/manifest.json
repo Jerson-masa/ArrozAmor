@@ -3,7 +3,7 @@
     "short_name": "Arroz Amor",
     "description": "Pide tu arroz favorito por WhatsApp en segundos",
     "start_url": "/",
-    "display": "standalone",
+    "display": "browser",
     "background_color": "#F8F9FA",
     "theme_color": "#FFD700",
     "orientation": "portrait",

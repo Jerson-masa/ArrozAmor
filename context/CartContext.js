@@ -7,6 +7,8 @@ const CartContext = createContext();
 export function CartProvider({ children }) {
     const [cart, setCart] = useState([]);
     const [customerName, setCustomerName] = useState('');
+    const [customerPhone, setCustomerPhone] = useState('');
+    const [customerAddress, setCustomerAddress] = useState('');
     const [orderNotes, setOrderNotes] = useState('');
 
     const addToCart = useCallback((name, price) => {
@@ -31,6 +33,10 @@ export function CartProvider({ children }) {
         total,
         customerName,
         setCustomerName,
+        customerPhone,
+        setCustomerPhone,
+        customerAddress,
+        setCustomerAddress,
         orderNotes,
         setOrderNotes
     };

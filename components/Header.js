@@ -16,6 +16,12 @@ export default function Header() {
     const [deferredPrompt, setDeferredPrompt] = useState(null);
 
     useEffect(() => {
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .catch(err => console.log('SW registration failed', err));
+        }
+
         const handler = (e) => {
             e.preventDefault();
             setDeferredPrompt(e);
@@ -82,7 +88,7 @@ export default function Header() {
             <div className="header-content">
                 <div className="logo-section">
                     <h1 className="logo">
-                        <img src="/lobster-chef-v2.png" alt="Chef Langosta - Arroz Amor" className="logo-full" />
+                        <img src="/lobster-chef-v2.webp" alt="Chef Langosta - Arroz Amor" className="logo-full" />
                         {/* Arroz Amor */}
                     </h1>
                     <p className="tagline tagline-gourmet">

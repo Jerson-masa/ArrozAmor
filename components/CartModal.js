@@ -3,13 +3,16 @@
 import { useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { useToast } from '@/context/ToastContext';
-
-const WHATSAPP_NUMBER = '573001234567'; // Cambiar por el número real
+import { useAdmin } from '@/context/AdminContext';
 
 export default function CartModal() {
     const [isOpen, setIsOpen] = useState(false);
-    const { cart, removeFromCart, clearCart, total, customerName, orderNotes } = useCart();
+    const { 
+        cart, removeFromCart, clearCart, total, 
+        customerName, customerPhone, customerAddress, orderNotes 
+    } = useCart();
     const { showToast } = useToast();
+    const { whatsappNumber, restaurantAddress } = useAdmin();
 
     const openCart = () => {
         setIsOpen(true);
@@ -33,11 +36,20 @@ export default function CartModal() {
             return;
         }
 
-        let message = '🍚 *NUEVO PEDIDO - Arroz Amor*\n\n';
-
-        if (customerName) {
-            message += `👤 *Cliente:* ${customerName}\n\n`;
+        if (!customerPhone || !customerAddress) {
+            showToast('Por favor, ingresa tu teléfono y dirección en el formulario');
+            return;
         }
+
+        let message = '🛵 *NUEVO DOMICILIO - Arroz Amor*\n\n';
+        
+        message += '📍 *De (Restaurante):*\n';
+        message += `${restaurantAddress}\n\n`;
+
+        message += '🏠 *Para (Cliente):*\n';
+        if (customerName) message += `Nombre: ${customerName}\n`;
+        message += `Dirección: ${customerAddress}\n`;
+        message += `Teléfono: ${customerPhone}\n\n`;
 
         message += '*📋 Pedido:*\n';
         cart.forEach(item => {
@@ -50,12 +62,12 @@ export default function CartModal() {
             message += `\n\n📝 *Notas:* ${orderNotes}`;
         }
 
-        const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+        const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
         window.open(whatsappURL, '_blank');
 
         clearCart();
         closeCart();
-        showToast('¡Pedido enviado!');
+        showToast('¡Pedido enviado al domiciliario!');
     };
 
     // Expose openCart globally for BottomNav
