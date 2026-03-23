@@ -1,13 +1,13 @@
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google"; // Temporalmente deshabilitado para evitar errores de red en el build
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
 import { ToastProvider } from "@/context/ToastContext";
 import { AdminProvider } from "@/context/AdminContext";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
+// const inter = Inter({
+//   variable: "--font-inter",
+//   subsets: ["latin"],
+// });
 
 export const metadata = {
   title: "LocaleComer - Tu Marketplace Local de Colombia",
@@ -40,7 +40,7 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
-      <body className={inter.variable}>
+      <body className="font-inter">
         <AdminProvider>
           <CartProvider>
             <ToastProvider>

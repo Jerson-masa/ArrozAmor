@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { useToast } from '@/context/ToastContext';
 import { useAdmin } from '@/context/AdminContext';
+import OrderForm from './OrderForm';
 
 export default function CartModal() {
     const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +13,7 @@ export default function CartModal() {
         customerName, customerPhone, customerAddress, orderNotes 
     } = useCart();
     const { showToast } = useToast();
-    const { whatsappNumber, restaurantAddress } = useAdmin();
+    const { whatsappNumber, restaurantAddress, incrementWhatsappOrders } = useAdmin();
 
     const openCart = () => {
         setIsOpen(true);
@@ -65,6 +66,7 @@ export default function CartModal() {
         const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
         window.open(whatsappURL, '_blank');
 
+        incrementWhatsappOrders();
         clearCart();
         closeCart();
         showToast('¡Pedido enviado al domiciliario!');
@@ -100,8 +102,23 @@ export default function CartModal() {
                                 <button
                                     className="cart-item-remove"
                                     onClick={() => removeFromCart(index)}
+                                    title="Eliminar"
+                                    style={{ 
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        background: '#fee2e2', color: '#ef4444', border: 'none', 
+                                        borderRadius: '6px', width: '32px', height: '32px', 
+                                        cursor: 'pointer', transition: 'all 0.2s ease',
+                                        boxShadow: '0 2px 5px rgba(239, 68, 68, 0.2)'
+                                    }}
+                                    onMouseOver={(e) => { e.currentTarget.style.background = '#fef2f2'; e.currentTarget.style.transform = 'scale(1.05)'; }}
+                                    onMouseOut={(e) => { e.currentTarget.style.background = '#fee2e2'; e.currentTarget.style.transform = 'scale(1)'; }}
                                 >
-                                    🗑️
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M3 6h18" />
+                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                        <line x1="10" y1="11" x2="10" y2="17" />
+                                        <line x1="14" y1="11" x2="14" y2="17" />
+                                    </svg>
                                 </button>
                             </div>
                         ))
@@ -112,6 +129,8 @@ export default function CartModal() {
                     <span>Total:</span>
                     <span id="cartTotal">${total.toLocaleString()}</span>
                 </div>
+
+                {cart.length > 0 && <OrderForm />}
 
                 <button className="btn-whatsapp" onClick={sendToWhatsApp}>
                     <span>💬</span> Enviar pedido por WhatsApp

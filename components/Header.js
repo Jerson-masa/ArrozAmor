@@ -1,10 +1,12 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { useAdmin } from '@/context/AdminContext';
 
 export default function Header() {
     const [isMuted, setIsMuted] = useState(true);
     const videoRef = useRef(null);
+    const { incrementAppDownloads } = useAdmin();
 
     const toggleSound = () => {
         if (videoRef.current) {
@@ -31,6 +33,7 @@ export default function Header() {
     }, []);
 
     const handleInstallClick = async () => {
+        incrementAppDownloads();
         if (!deferredPrompt) {
             // Fallback or instructions for iOS
             alert('Para instalar: \niOS: Pulsa compartir y "Añadir a inicio" \nAndroid: "Añadir a pantalla de inicio" en el menú');

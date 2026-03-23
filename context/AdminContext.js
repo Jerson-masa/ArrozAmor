@@ -35,6 +35,8 @@ export function AdminProvider({ children }) {
     const [menuItems, setMenuItems] = useState([]);
     const [whatsappNumber, setWhatsappNumber] = useState('');
     const [restaurantAddress, setRestaurantAddress] = useState('');
+    const [whatsappOrdersCount, setWhatsappOrdersCount] = useState(0);
+    const [appDownloadsCount, setAppDownloadsCount] = useState(0);
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
@@ -63,6 +65,12 @@ export function AdminProvider({ children }) {
             localStorage.setItem('arroz_restaurant_address', 'Mi Restaurante, Dirección Central');
         }
 
+        const savedOrders = localStorage.getItem('arroz_whatsapp_orders');
+        const savedDownloads = localStorage.getItem('arroz_app_downloads');
+
+        if (savedOrders) setWhatsappOrdersCount(parseInt(savedOrders) || 0);
+        if (savedDownloads) setAppDownloadsCount(parseInt(savedDownloads) || 0);
+
         setIsLoaded(true);
     }, []);
 
@@ -81,6 +89,22 @@ export function AdminProvider({ children }) {
         localStorage.setItem('arroz_restaurant_address', newAddress);
     };
 
+    const incrementWhatsappOrders = () => {
+        setWhatsappOrdersCount(prev => {
+            const next = prev + 1;
+            localStorage.setItem('arroz_whatsapp_orders', next);
+            return next;
+        });
+    };
+
+    const incrementAppDownloads = () => {
+        setAppDownloadsCount(prev => {
+            const next = prev + 1;
+            localStorage.setItem('arroz_app_downloads', next);
+            return next;
+        });
+    };
+
     const value = {
         menuItems,
         updateMenuItems,
@@ -88,6 +112,10 @@ export function AdminProvider({ children }) {
         updateWhatsappNumber,
         restaurantAddress,
         updateRestaurantAddress,
+        whatsappOrdersCount,
+        incrementWhatsappOrders,
+        appDownloadsCount,
+        incrementAppDownloads,
         isLoaded
     };
 

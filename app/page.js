@@ -5,6 +5,7 @@ import QuickAccess from "@/components/QuickAccess";
 import Menu from "@/components/Menu";
 import Chatbot from "@/components/Chatbot";
 import BottomNav from "@/components/BottomNav";
+import CartModal from "@/components/CartModal";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Menu />
       <Chatbot />
       <BottomNav />
+      <CartModal />
     </>
   );
 }

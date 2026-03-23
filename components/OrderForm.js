@@ -11,50 +11,52 @@ export default function OrderForm() {
     } = useCart();
 
     return (
-        <section className="order-form">
-            <div className="form-card">
-                <h3 className="form-title">📱 Datos del pedido</h3>
-                <div className="form-group">
-                    <label htmlFor="customerName">Tu nombre (opcional)</label>
-                    <input
-                        type="text"
-                        id="customerName"
-                        placeholder="Ej: María"
-                        value={customerName}
-                        onChange={(e) => setCustomerName(e.target.value)}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="customerPhone">Tu teléfono (para el domicilio)</label>
-                    <input
-                        type="tel"
-                        id="customerPhone"
-                        placeholder="Ej: 3001234567"
-                        value={customerPhone}
-                        onChange={(e) => setCustomerPhone(e.target.value)}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="customerAddress">Tu dirección (para el envío)</label>
-                    <input
-                        type="text"
-                        id="customerAddress"
-                        placeholder="Ej: Calle 1 #2-3 Barrio Centro"
-                        value={customerAddress}
-                        onChange={(e) => setCustomerAddress(e.target.value)}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="orderNotes">Notas adicionales</label>
-                    <input
-                        type="text"
-                        id="orderNotes"
-                        placeholder="Ej: Sin cebolla, para llevar..."
-                        value={orderNotes}
-                        onChange={(e) => setOrderNotes(e.target.value)}
-                    />
-                </div>
+        <div style={{ marginTop: '15px' }}>
+            <h3 className="form-title" style={{ fontSize: '1rem', fontWeight: 'bold', marginBottom: '12px' }}>📱 Datos del domicilio</h3>
+            <div className="form-group" style={{ marginBottom: '10px' }}>
+                <label htmlFor="customerName" style={{ fontSize: '0.85rem' }}>Tu nombre (opcional)</label>
+                <input
+                    type="text"
+                    id="customerName"
+                    placeholder="Ej: María"
+                    value={customerName}
+                    onChange={(e) => setCustomerName(e.target.value)}
+                    style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd' }}
+                />
             </div>
-        </section>
+            <div className="form-group" style={{ marginBottom: '10px' }}>
+                <label htmlFor="customerPhone" style={{ fontSize: '0.85rem' }}>Tu teléfono (para contacto)</label>
+                <input
+                    type="tel"
+                    id="customerPhone"
+                    placeholder="Ej: 3001234567"
+                    value={customerPhone}
+                    onChange={(e) => setCustomerPhone(e.target.value)}
+                    style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd' }}
+                />
+            </div>
+            <div className="form-group" style={{ marginBottom: '10px' }}>
+                <label htmlFor="customerAddress" style={{ fontSize: '0.85rem' }}>Tu dirección (para el envío)</label>
+                <input
+                    type="text"
+                    id="customerAddress"
+                    placeholder="Ej: Calle 1 #2-3 Barrio Centro"
+                    value={customerAddress}
+                    onChange={(e) => setCustomerAddress(e.target.value)}
+                    style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd' }}
+                />
+            </div>
+            <div className="form-group" style={{ marginBottom: '10px' }}>
+                <label htmlFor="orderNotes" style={{ fontSize: '0.85rem' }}>Notas adicionales</label>
+                <input
+                    type="text"
+                    id="orderNotes"
+                    placeholder="Ej: Sin cebolla, para llevar..."
+                    value={orderNotes}
+                    onChange={(e) => setOrderNotes(e.target.value)}
+                    style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd' }}
+                />
+            </div>
+        </div>
     );
 }

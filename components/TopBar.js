@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { getDepartments, getCitiesByDepartment } from '@/data/colombiaRegions';
+import { useCart } from '@/context/CartContext';
+import { useToast } from '@/context/ToastContext';
 
 export default function TopBar() {
     const [isRegionOpen, setIsRegionOpen] = useState(false);
@@ -11,17 +13,23 @@ export default function TopBar() {
     const [cities, setCities] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [favorites, setFavorites] = useState([]);
-    const [cartCount, setCartCount] = useState(0);
+    const [loggedInUser, setLoggedInUser] = useState(null);
+    const [emailInput, setEmailInput] = useState('');
+    const [passwordInput, setPasswordInput] = useState('');
     const regionRef = useRef(null);
     const loginRef = useRef(null);
 
     const departments = getDepartments();
+    const { cart } = useCart();
+    const { showToast } = useToast();
+    const cartCount = cart.length;
 
     // Cargar datos guardados del localStorage
     useEffect(() => {
         const savedDepartment = localStorage.getItem('selectedDepartment');
         const savedCity = localStorage.getItem('selectedCity');
         const savedFavorites = localStorage.getItem('favorites');
+        const savedUser = localStorage.getItem('loggedInUser');
 
         if (savedDepartment) {
             setSelectedDepartment(savedDepartment);
@@ -32,6 +40,9 @@ export default function TopBar() {
         }
         if (savedFavorites) {
             setFavorites(JSON.parse(savedFavorites));
+        }
+        if (savedUser) {
+            setLoggedInUser(savedUser);
         }
     }, []);
 
@@ -178,26 +189,80 @@ export default function TopBar() {
                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                                 <circle cx="12" cy="7" r="4" />
                             </svg>
-                            <span className="action-label">Entrar</span>
+                            <span className="action-label">{loggedInUser ? (loggedInUser.split('@')[0].substring(0, 8) + '...') : 'Entrar'}</span>
                         </button>
 
                         {isLoginOpen && (
                             <div className="login-dropdown">
-                                <div className="login-dropdown-header">
-                                    <h4>Bienvenido a LocaleComer</h4>
-                                    <p>Inicia sesión para una mejor experiencia</p>
-                                </div>
-                                <button className="login-submit-btn">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-                                        <polyline points="10 17 15 12 10 7" />
-                                        <line x1="15" y1="12" x2="3" y2="12" />
-                                    </svg>
-                                    Iniciar Sesión
-                                </button>
-                                <button className="register-btn">
-                                    Registrarse
-                                </button>
+                                {loggedInUser ? (
+                                    <>
+                                        <div className="login-dropdown-header">
+                                            <h4>Hola, {loggedInUser}</h4>
+                                            <p>¡Bienvenido de vuelta!</p>
+                                        </div>
+                                        <button className="login-submit-btn" onClick={() => { 
+                                            localStorage.removeItem('loggedInUser');
+                                            setLoggedInUser(null);
+                                            setIsLoginOpen(false); 
+                                            showToast('Sesión cerrada'); 
+                                        }}>
+                                            Cerrar Sesión
+                                        </button>
+                                        <div style={{ marginTop: '15px', paddingTop: '10px', borderTop: '1px solid #eee', textAlign: 'center' }}>
+                                            <a href="/admin" style={{ color: '#F97316', fontSize: '12px', fontWeight: 'bold', textDecoration: 'none' }}>🛡️ Ingreso para Administradores</a>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className="login-dropdown-header">
+                                            <h4>Bienvenido a LocaleComer</h4>
+                                            <p>Ingresa tus datos para continuar</p>
+                                        </div>
+                                        
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '15px' }}>
+                                            <input 
+                                                type="email" 
+                                                placeholder="Correo electrónico" 
+                                                value={emailInput}
+                                                onChange={(e) => setEmailInput(e.target.value)}
+                                                style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #eee', fontSize: '14px', boxSizing: 'border-box' }}
+                                            />
+                                            <input 
+                                                type="password" 
+                                                placeholder="Contraseña" 
+                                                value={passwordInput}
+                                                onChange={(e) => setPasswordInput(e.target.value)}
+                                                style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #eee', fontSize: '14px', boxSizing: 'border-box' }}
+                                            />
+                                        </div>
+
+                                        <button className="login-submit-btn" onClick={() => { 
+                                            if (emailInput && passwordInput) {
+                                                localStorage.setItem('loggedInUser', emailInput);
+                                                setLoggedInUser(emailInput);
+                                                setIsLoginOpen(false);
+                                                showToast('Sesión iniciada correctamente');
+                                            } else {
+                                                showToast('Por favor ingresa tu correo y contraseña');
+                                            }
+                                        }}>
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                                                <polyline points="10 17 15 12 10 7" />
+                                                <line x1="15" y1="12" x2="3" y2="12" />
+                                            </svg>
+                                            Iniciar Sesión
+                                        </button>
+                                        
+                                        <button className="register-btn" onClick={() => { setIsLoginOpen(false); showToast('El registro de usuarios nuevos estará disponible próximamente'); }}>
+                                            Crear cuenta nueva
+                                        </button>
+
+                                        <div style={{ marginTop: '15px', paddingTop: '10px', borderTop: '1px solid #eee', textAlign: 'center' }}>
+                                            <a href="/admin" style={{ color: '#F97316', fontSize: '12px', fontWeight: 'bold', textDecoration: 'none' }}>🛡️ Ingreso para Restaurantes (Admin)</a>
+                                        </div>
+                                    </>
+                                )}
                             </div>
                         )}
                     </div>
@@ -224,7 +289,7 @@ export default function TopBar() {
                     </button>
 
                     {/* Carrito */}
-                    <button className="action-btn cart-btn" aria-label="Carrito">
+                    <button className="action-btn cart-btn" aria-label="Carrito" onClick={() => window.openCart && window.openCart()}>
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <circle cx="9" cy="21" r="1" />
                             <circle cx="20" cy="21" r="1" />

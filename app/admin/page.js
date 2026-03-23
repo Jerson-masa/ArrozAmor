@@ -15,6 +15,7 @@ export default function AdminPage() {
         menuItems, updateMenuItems, 
         whatsappNumber, updateWhatsappNumber,
         restaurantAddress, updateRestaurantAddress,
+        whatsappOrdersCount, appDownloadsCount,
         isLoaded
     } = useAdmin();
 
@@ -23,13 +24,15 @@ export default function AdminPage() {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        if (username.toLowerCase() === 'auner masa' && password === 'arroz amor') {
+        const cleanUser = username.trim().toLowerCase();
+        const cleanPass = password.trim().toLowerCase();
+        if (cleanUser === 'auner masa' && cleanPass === 'arroz amor') {
             setIsLoggedIn(true);
             setFormWhatsapp(whatsappNumber);
             setFormAddress(restaurantAddress);
             showToast('Sesión iniciada correctamente');
         } else {
-            showToast('Credenciales incorrectas');
+            showToast('Credenciales incorrectas. Intenta nuevamente.');
         }
     };
 
@@ -63,10 +66,9 @@ export default function AdminPage() {
     };
 
     const handleDeleteMenuItem = (id) => {
-        if (confirm('¿Seguro que deseas eliminar este plato?')) {
-            updateMenuItems(menuItems.filter(item => item.id !== id));
-            showToast('Plato eliminado');
-        }
+        // Confirmación removida temporalmente en caso de que el navegador esté bloqueando pop-ups
+        updateMenuItems(menuItems.filter(item => item.id !== id));
+        showToast('Plato eliminado');
     };
 
     if (!isLoaded) return <div style={{ padding: '2rem', textAlign: 'center' }}>Cargando...</div>;
@@ -114,6 +116,18 @@ export default function AdminPage() {
             <div style={{ maxWidth: '800px', margin: '2rem auto', padding: '1rem' }}>
                 <h1 style={{ marginBottom: '2rem', color: '#333' }}>Panel de Administración</h1>
 
+                {/* Dashboard Stats */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
+                    <div style={{ background: '#fff', padding: '1.5rem', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', textAlign: 'center', borderTop: '4px solid #25D366' }}>
+                        <h3 style={{ margin: '0 0 10px 0', color: '#666', fontSize: '0.9rem', textTransform: 'uppercase' }}>Pedidos por WhatsApp</h3>
+                        <p style={{ margin: 0, fontSize: '2.8rem', fontWeight: 'bold', color: '#25D366' }}>{whatsappOrdersCount}</p>
+                    </div>
+                    <div style={{ background: '#fff', padding: '1.5rem', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', textAlign: 'center', borderTop: '4px solid #F97316' }}>
+                        <h3 style={{ margin: '0 0 10px 0', color: '#666', fontSize: '0.9rem', textTransform: 'uppercase' }}>Descargas de App</h3>
+                        <p style={{ margin: 0, fontSize: '2.8rem', fontWeight: 'bold', color: '#F97316' }}>{appDownloadsCount}</p>
+                    </div>
+                </div>
+
                 <div style={{ background: '#fff', padding: '1.5rem', borderRadius: '8px', marginBottom: '2rem', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
                     <h2 style={{ marginBottom: '1rem', color: '#ff6b00' }}>Configuración del Domicilio</h2>
                     
@@ -150,6 +164,7 @@ export default function AdminPage() {
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
                         <h2 style={{ margin: 0, color: '#ff6b00' }}>Platos Registrados</h2>
                         <button 
+                            type="button"
                             onClick={handleAddMenuItem}
                             style={{ padding: '0.5rem 1rem', background: '#28a745', color: '#fff', border: 'none', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer' }}
                         >
@@ -199,6 +214,7 @@ export default function AdminPage() {
                                     </div>
                                     <div style={{ flex: '0 0 auto', marginLeft: 'auto' }}>
                                         <button 
+                                            type="button"
                                             onClick={() => handleDeleteMenuItem(item.id)}
                                             style={{ padding: '0.5rem 1rem', background: '#dc3545', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
                                             title="Eliminar Plato"

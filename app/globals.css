@@ -628,6 +628,53 @@ body {
     margin-bottom: 12px;
 }
 
+/* ===== Newly Styled Add to Cart Button ===== */
+.add-to-cart-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #FF6B00 0%, #FF9500 100%);
+    color: #FFFFFF;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 5px;
+}
+
+.add-to-cart-btn:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 6px 16px rgba(255, 107, 0, 0.5);
+    background: linear-gradient(135deg, #FF7B00 0%, #FFA500 100%);
+}
+
+.add-to-cart-btn:active {
+    transform: translateY(1px) scale(0.97);
+    box-shadow: 0 2px 8px rgba(255, 107, 0, 0.4);
+}
+
+.add-to-cart-btn svg {
+    display: inline-block;
+    vertical-align: middle;
+    /* Pulsing animation for the cart icon to grab attention */
+    animation: heartBeat 2.5s infinite;
+}
+
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    15% { transform: scale(1.2); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.2); }
+    60%, 100% { transform: scale(1); }
+}
+
 /* Size Selector */
 .size-selector {
     display: flex;
