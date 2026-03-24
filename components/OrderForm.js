@@ -47,11 +47,11 @@ export default function OrderForm() {
                 />
             </div>
             <div className="form-group" style={{ marginBottom: '10px' }}>
-                <label htmlFor="orderNotes" style={{ fontSize: '0.85rem' }}>Notas adicionales</label>
+                <label htmlFor="orderNotes" style={{ fontSize: '0.85rem' }}>Agrega detalles de tu ubicación</label>
                 <input
                     type="text"
                     id="orderNotes"
-                    placeholder="Ej: Sin cebolla, para llevar..."
+                    placeholder="Ej: Al frente de la tienda Éxito..."
                     value={orderNotes}
                     onChange={(e) => setOrderNotes(e.target.value)}
                     style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd' }}
