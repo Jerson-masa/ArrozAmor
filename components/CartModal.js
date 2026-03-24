@@ -132,9 +132,16 @@ export default function CartModal() {
 
                 {cart.length > 0 && <OrderForm />}
 
-                <button className="btn-whatsapp" onClick={sendToWhatsApp}>
-                    <span>💬</span> Enviar pedido por WhatsApp
-                </button>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
+                    <button className="btn-whatsapp" onClick={sendToWhatsApp} style={{ marginTop: '0' }}>
+                        <span>💬</span> Enviar pedido por WhatsApp
+                    </button>
+                    <button onClick={closeCart} style={{ 
+                        padding: '12px', background: 'transparent', border: '2px solid #FF6B00', color: '#FF6B00', borderRadius: '12px', fontSize: '1rem', fontWeight: 'bold', cursor: 'pointer', transition: 'all 0.2s', width: '100%' 
+                    }} onMouseOver={(e) => { e.currentTarget.style.background = '#fff4ed'; }} onMouseOut={(e) => { e.currentTarget.style.background = 'transparent'; }}>
+                        Seguir pidiendo más platos
+                    </button>
+                </div>
             </div>
         </div>
     );

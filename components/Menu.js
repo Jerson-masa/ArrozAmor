@@ -12,7 +12,32 @@ export default function Menu() {
     const { showToast } = useToast();
     const { menuItems, isLoaded } = useAdmin();
 
-    const handleCazuelaAdd = () => {
+    const triggerFlyAnimation = (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const cartIcon = document.querySelector('.cart-btn');
+        if (cartIcon) {
+            const cartRect = cartIcon.getBoundingClientRect();
+            const flyer = document.createElement('div');
+            flyer.innerHTML = '🦞';
+            flyer.className = 'flying-item';
+            
+            const startX = rect.left + rect.width / 2 - 24;
+            const startY = rect.top + rect.height / 2 - 24;
+            const targetX = cartRect.left + cartRect.width / 2 - 24;
+            const targetY = cartRect.top + cartRect.height / 2 - 24;
+            
+            flyer.style.left = `${startX}px`;
+            flyer.style.top = `${startY}px`;
+            flyer.style.setProperty('--tx', `${targetX - startX}px`);
+            flyer.style.setProperty('--ty', `${targetY - startY}px`);
+            
+            document.body.appendChild(flyer);
+            setTimeout(() => { if (document.body.contains(flyer)) document.body.removeChild(flyer); }, 800);
+        }
+    };
+
+    const handleCazuelaAdd = (e) => {
+        triggerFlyAnimation(e);
         const size = selectedCazuelaPrice === 10000 ? 'Pequeña' : 'Grande';
         addToCart(`Cazuela de mariscos (${size})`, selectedCazuelaPrice);
         showToast('Cazuela añadida');
@@ -38,6 +63,7 @@ export default function Menu() {
                     className="menu-item-img"
                     src="/images/cazuela.webp"
                     alt="Cazuela de Mariscos"
+                    loading="lazy"
                 />
                 <div className="menu-item-content">
                     <div className="menu-item-info">

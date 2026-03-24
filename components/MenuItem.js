@@ -7,7 +7,32 @@ export default function MenuItem({ id, name, emoji, description, price, image })
     const { addToCart } = useCart();
     const { showToast } = useToast();
 
-    const handleAdd = () => {
+    const triggerFlyAnimation = (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const cartIcon = document.querySelector('.cart-btn');
+        if (cartIcon) {
+            const cartRect = cartIcon.getBoundingClientRect();
+            const flyer = document.createElement('div');
+            flyer.innerHTML = emoji || '🍲';
+            flyer.className = 'flying-item';
+            
+            const startX = rect.left + rect.width / 2 - 24;
+            const startY = rect.top + rect.height / 2 - 24;
+            const targetX = cartRect.left + cartRect.width / 2 - 24;
+            const targetY = cartRect.top + cartRect.height / 2 - 24;
+            
+            flyer.style.left = `${startX}px`;
+            flyer.style.top = `${startY}px`;
+            flyer.style.setProperty('--tx', `${targetX - startX}px`);
+            flyer.style.setProperty('--ty', `${targetY - startY}px`);
+            
+            document.body.appendChild(flyer);
+            setTimeout(() => { if (document.body.contains(flyer)) document.body.removeChild(flyer); }, 800);
+        }
+    };
+
+    const handleAdd = (e) => {
+        triggerFlyAnimation(e);
         addToCart(name, price);
         showToast(`${name} añadido`);
     };
@@ -18,6 +43,7 @@ export default function MenuItem({ id, name, emoji, description, price, image })
                 className="menu-item-img"
                 src={image}
                 alt={name}
+                loading="lazy"
             />
             <div className="menu-item-content">
                 <div className="menu-item-info">

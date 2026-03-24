@@ -12,7 +12,13 @@ export function CartProvider({ children }) {
     const [orderNotes, setOrderNotes] = useState('');
 
     const addToCart = useCallback((name, price) => {
-        setCart(prev => [...prev, { name, price }]);
+        setCart(prev => {
+            const newCart = [...prev, { name, price }];
+            if (prev.length === 0 && typeof window !== 'undefined' && window.openCart) {
+                setTimeout(() => window.openCart(), 800); // Wait for flying animation to finish
+            }
+            return newCart;
+        });
     }, []);
 
     const removeFromCart = useCallback((index) => {

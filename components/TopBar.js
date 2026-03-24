@@ -267,38 +267,24 @@ export default function TopBar() {
                         )}
                     </div>
 
-                    {/* Favoritos */}
-                    <button className="action-btn" aria-label="Favoritos">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                        </svg>
-                        {favorites.length > 0 && (
-                            <span className="action-badge">{favorites.length}</span>
-                        )}
-                    </button>
 
-                    {/* Regalos / Promociones */}
-                    <button className="action-btn" aria-label="Promociones">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <polyline points="20 12 20 22 4 22 4 12" />
-                            <rect x="2" y="7" width="20" height="5" />
-                            <line x1="12" y1="22" x2="12" y2="7" />
-                            <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
-                            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
-                        </svg>
-                    </button>
 
                     {/* Carrito */}
-                    <button className="action-btn cart-btn" aria-label="Carrito" onClick={() => window.openCart && window.openCart()}>
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <circle cx="9" cy="21" r="1" />
-                            <circle cx="20" cy="21" r="1" />
-                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-                        </svg>
-                        {cartCount > 0 && (
-                            <span className="action-badge">{cartCount}</span>
-                        )}
-                    </button>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span style={{ fontSize: '0.85rem', fontWeight: '800', color: '#ff6b00', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                            Mirar mi pedido 👉
+                        </span>
+                        <button className="action-btn cart-btn" aria-label="Carrito" onClick={() => window.openCart && window.openCart()}>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <circle cx="9" cy="21" r="1.5" />
+                                <circle cx="20" cy="21" r="1.5" />
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                            </svg>
+                            {cartCount > 0 && (
+                                <span className="action-badge">{cartCount}</span>
+                            )}
+                        </button>
+                    </div>
                 </div>
             </div>
         </nav>
