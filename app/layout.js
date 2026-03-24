@@ -13,7 +13,6 @@ export const metadata = {
   title: "Arroz Amor - Tu Restaurante Local",
   description: "Encuentra la mejor sazón y platos deliciosos. Pide a domicilio con Arroz Amor.",
   manifest: "/manifest.json",
-  themeColor: "#F97316",
   verification: {
     google: "zDiIwQLSQenw4K04qNCq1aubnnUJbHI2VBEmGIJP5Wo",
   },
