@@ -10,8 +10,8 @@ import { AdminProvider } from "@/context/AdminContext";
 // });
 
 export const metadata = {
-  title: "LocaleComer - Tu Marketplace Local de Colombia",
-  description: "Encuentra productos y servicios locales cerca de ti. Compra y vende en tu ciudad con LocaleComer.",
+  title: "Arroz Amor - Tu Restaurante Local",
+  description: "Encuentra la mejor sazón y platos deliciosos. Pide a domicilio con Arroz Amor.",
   manifest: "/manifest.json",
   themeColor: "#F97316",
   verification: {
@@ -20,7 +20,7 @@ export const metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "LocaleComer",
+    title: "Arroz Amor",
   },
   icons: {
     icon: "/icons/icon-192.png?v=4",

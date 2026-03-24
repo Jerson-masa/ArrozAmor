@@ -97,9 +97,8 @@ export default function TopBar() {
         <nav className="topbar">
             <div className="topbar-container">
                 {/* Logo */}
-                <a href="/" className="topbar-logo">
-                    <span className="logo-local">Local</span>
-                    <span className="logo-ecomer">eComer</span>
+                <a href="/" className="topbar-logo" style={{ textDecoration: 'none' }}>
+                    <span style={{ fontStyle: 'italic', fontWeight: '800', fontSize: '1.4rem', color: '#F97316', fontFamily: 'var(--font-inter), sans-serif' }}>Arroz Amor</span>
                 </a>
 
                 {/* Botón de Región */}
@@ -226,7 +225,7 @@ export default function TopBar() {
                                 ) : (
                                     <>
                                         <div className="login-dropdown-header">
-                                            <h4>Bienvenido a LocaleComer</h4>
+                                            <h4>Bienvenido a Arroz Amor</h4>
                                             <p>Ingresa tus datos para continuar</p>
                                         </div>
                                         

@@ -36,7 +36,7 @@ export default function Header() {
         incrementAppDownloads();
         if (!deferredPrompt) {
             // Fallback or instructions for iOS
-            alert('Para instalar: \niOS: Pulsa compartir y "Añadir a inicio" \nAndroid: "Añadir a pantalla de inicio" en el menú');
+            alert('📱 Para Instalar la App Oficial:\n\n1. Toca los 3 puntitos (Menú) de tu navegador arriba a la derecha.\n2. Elige "Instalar aplicación" o "Agregar a pantalla principal".\n\n¡Es rápida, segura y no ocupa memoria en tu celular!');
             return;
         }
         deferredPrompt.prompt();
@@ -92,9 +92,8 @@ export default function Header() {
 
             <div className="header-content">
                 <div className="logo-section">
-                    <h1 className="logo">
-                        <img src="/lobster-chef-v2.webp" alt="Chef Langosta - Arroz Amor" className="logo-full" fetchpriority="high" decoding="async" />
-                        {/* Arroz Amor */}
+                    <h1 className="logo" style={{ color: 'white', fontStyle: 'italic', fontFamily: 'var(--font-inter), sans-serif', textShadow: '0 4px 10px rgba(0,0,0,0.8)', fontSize: '3.5rem', margin: 0, fontWeight: '900', letterSpacing: '-1px' }}>
+                        Arroz Amor
                     </h1>
                     <p className="tagline tagline-gourmet">
                         <em>Calidad y Sazón Gourmet</em> <span className="price-badge">desde $6.000</span>
