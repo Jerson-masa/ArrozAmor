@@ -9,6 +9,7 @@ export default function AdminPage() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [isSaving, setIsSaving] = useState(false);
     const { showToast } = useToast();
 
     const { 
@@ -69,6 +70,28 @@ export default function AdminPage() {
         // Confirmación removida temporalmente en caso de que el navegador esté bloqueando pop-ups
         updateMenuItems(menuItems.filter(item => item.id !== id));
         showToast('Plato eliminado');
+    };
+
+    const handleSyncToCloud = async () => {
+        setIsSaving(true);
+        try {
+            const res = await fetch('/api/menu/sync', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ menuItems })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                showToast('Cambios guardados en la nube exitosamente');
+            } else {
+                showToast('Error al guardar: ' + (data.error || 'Desconocido'));
+            }
+        } catch (error) {
+            console.error(error);
+            showToast('Error de conexión al guardar cambios');
+        } finally {
+            setIsSaving(false);
+        }
     };
 
     if (!isLoaded) return <div style={{ padding: '2rem', textAlign: 'center' }}>Cargando...</div>;
@@ -163,13 +186,23 @@ export default function AdminPage() {
                 <div style={{ background: '#fff', padding: '1.5rem', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
                         <h2 style={{ margin: 0, color: '#ff6b00' }}>Platos Registrados</h2>
-                        <button 
-                            type="button"
-                            onClick={handleAddMenuItem}
-                            style={{ padding: '0.5rem 1rem', background: '#28a745', color: '#fff', border: 'none', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer' }}
-                        >
-                            + Agregar Nuevo Plato
-                        </button>
+                        <div style={{ display: 'flex', gap: '1rem' }}>
+                            <button 
+                                type="button"
+                                onClick={handleAddMenuItem}
+                                style={{ padding: '0.5rem 1rem', background: '#28a745', color: '#fff', border: 'none', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer' }}
+                            >
+                                + Agregar Nuevo Plato
+                            </button>
+                            <button 
+                                type="button"
+                                onClick={handleSyncToCloud}
+                                disabled={isSaving}
+                                style={{ padding: '0.5rem 1rem', background: '#007bff', color: '#fff', border: 'none', borderRadius: '4px', fontWeight: 'bold', cursor: isSaving ? 'not-allowed' : 'pointer', opacity: isSaving ? 0.7 : 1 }}
+                            >
+                                {isSaving ? 'Guardando...' : '💾 Guardar Cambios'}
+                            </button>
+                        </div>
                     </div>
                     
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>

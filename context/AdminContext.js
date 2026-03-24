@@ -40,16 +40,41 @@ export function AdminProvider({ children }) {
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        const savedMenuItems = localStorage.getItem('arroz_menu_items');
+        const fetchCloudData = async () => {
+            try {
+                const res = await fetch('/api/menu');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.menuItems && data.menuItems.length > 0) {
+                        setMenuItems(data.menuItems);
+                        localStorage.setItem('arroz_menu_items', JSON.stringify(data.menuItems));
+                        return true;
+                    }
+                }
+            } catch (err) {
+                console.error("Error fetching menu items from cloud:", err);
+            }
+            return false;
+        };
+
+        const loadMenuItems = async () => {
+            // Priority: Cloud API -> LocalStorage -> Default
+            const cloudLoaded = await fetchCloudData();
+            if (!cloudLoaded) {
+                const savedMenuItems = localStorage.getItem('arroz_menu_items');
+                if (savedMenuItems) {
+                    setMenuItems(JSON.parse(savedMenuItems));
+                } else {
+                    setMenuItems(defaultMenuItems);
+                    localStorage.setItem('arroz_menu_items', JSON.stringify(defaultMenuItems));
+                }
+            }
+        };
+        
+        loadMenuItems();
+
         const savedWhatsapp = localStorage.getItem('arroz_whatsapp_number');
         const savedAddress = localStorage.getItem('arroz_restaurant_address');
-
-        if (savedMenuItems) {
-            setMenuItems(JSON.parse(savedMenuItems));
-        } else {
-            setMenuItems(defaultMenuItems);
-            localStorage.setItem('arroz_menu_items', JSON.stringify(defaultMenuItems));
-        }
 
         if (savedWhatsapp) {
             setWhatsappNumber(savedWhatsapp);
