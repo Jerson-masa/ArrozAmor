@@ -34,15 +34,20 @@ export default function Header() {
 
     const handleInstallClick = async () => {
         incrementAppDownloads();
-        if (!deferredPrompt) {
-            // Fallback or instructions for iOS
+        
+        const promptToUse = deferredPrompt || window.deferredPrompt;
+        
+        if (!promptToUse) {
+            // Fallback or instructions for iOS / browsers that block it
             alert('📱 Para Instalar la App Oficial:\n\n1. Toca los 3 puntitos (Menú) de tu navegador arriba a la derecha.\n2. Elige "Instalar aplicación" o "Agregar a pantalla principal".\n\n¡Es rápida, segura y no ocupa memoria en tu celular!');
             return;
         }
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
+        
+        promptToUse.prompt();
+        const { outcome } = await promptToUse.userChoice;
         if (outcome === 'accepted') {
             setDeferredPrompt(null);
+            window.deferredPrompt = null;
         }
     };
 

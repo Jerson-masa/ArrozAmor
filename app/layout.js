@@ -43,6 +43,14 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+        <script dangerouslySetInnerHTML={{
+          __html: `
+          window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            window.deferredPrompt = e;
+          });
+          `
+        }} />
       </head>
       <body className="font-inter">
         <AdminProvider>
