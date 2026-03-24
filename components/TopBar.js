@@ -101,62 +101,7 @@ export default function TopBar() {
                     <span style={{ fontStyle: 'italic', fontWeight: '800', fontSize: '1.4rem', color: '#F97316', fontFamily: 'var(--font-inter), sans-serif' }}>Arroz Amor</span>
                 </a>
 
-                {/* Botón de Región */}
-                <div className="topbar-region" ref={regionRef}>
-                    <button
-                        className="region-btn"
-                        onClick={() => setIsRegionOpen(!isRegionOpen)}
-                        aria-label="Seleccionar región"
-                    >
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                            <circle cx="12" cy="10" r="3" />
-                        </svg>
-                        <span className="region-text">{getLocationDisplay()}</span>
-                        <svg className={`region-arrow ${isRegionOpen ? 'open' : ''}`} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <polyline points="6 9 12 15 18 9" />
-                        </svg>
-                    </button>
 
-                    {/* Dropdown de Región */}
-                    {isRegionOpen && (
-                        <div className="region-dropdown">
-                            <div className="region-dropdown-header">
-                                <h4>🇨🇴 Selecciona tu ubicación</h4>
-                            </div>
-
-                            <div className="region-select-group">
-                                <label>Departamento</label>
-                                <select
-                                    value={selectedDepartment}
-                                    onChange={(e) => handleDepartmentChange(e.target.value)}
-                                    className="region-select"
-                                >
-                                    <option value="">Selecciona departamento...</option>
-                                    {departments.map(dept => (
-                                        <option key={dept} value={dept}>{dept}</option>
-                                    ))}
-                                </select>
-                            </div>
-
-                            {cities.length > 0 && (
-                                <div className="region-select-group">
-                                    <label>Ciudad / Municipio</label>
-                                    <select
-                                        value={selectedCity}
-                                        onChange={(e) => handleCityChange(e.target.value)}
-                                        className="region-select"
-                                    >
-                                        <option value="">Selecciona ciudad...</option>
-                                        {cities.map(city => (
-                                            <option key={city} value={city}>{city}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                            )}
-                        </div>
-                    )}
-                </div>
 
                 {/* Botón Ver Menú */}
                 <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>

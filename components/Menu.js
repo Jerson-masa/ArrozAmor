@@ -38,8 +38,7 @@ export default function Menu() {
 
     const handleCazuelaAdd = (e) => {
         triggerFlyAnimation(e);
-        const size = selectedCazuelaPrice === 10000 ? 'Pequeña' : 'Grande';
-        addToCart(`Cazuela de mariscos (${size})`, selectedCazuelaPrice);
+        addToCart('Cazuela de mariscos Especial', 10000);
         showToast('Cazuela añadida');
     };
 
@@ -80,20 +79,7 @@ export default function Menu() {
                 </div>
             </div>
 
-            <div className="size-selector">
-                <button
-                    className={`size-btn ${selectedCazuelaPrice === 10000 ? 'active' : ''}`}
-                    onClick={() => setSelectedCazuelaPrice(10000)}
-                >
-                    Pequeña - $10.000
-                </button>
-                <button
-                    className={`size-btn ${selectedCazuelaPrice === 15000 ? 'active' : ''}`}
-                    onClick={() => setSelectedCazuelaPrice(15000)}
-                >
-                    Grande - $15.000
-                </button>
-            </div>
+
 
             {/* Button removed */}
         </section>
