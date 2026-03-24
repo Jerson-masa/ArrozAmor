@@ -64,6 +64,8 @@ export default function Header() {
                 muted
                 loop
                 playsInline
+                preload="auto"
+                fetchpriority="high"
                 poster="https://res.cloudinary.com/divyzn2hg/video/upload/q_auto,f_auto,w_800/v1769295579/WhatsApp_Video_2026-01-24_at_1.24.28_PM_f3oyyb.jpg"
             >
                 <source src="https://res.cloudinary.com/divyzn2hg/video/upload/q_auto,f_auto,w_800/v1769295579/WhatsApp_Video_2026-01-24_at_1.24.28_PM_f3oyyb.mp4" type="video/mp4" />
@@ -91,7 +93,7 @@ export default function Header() {
             <div className="header-content">
                 <div className="logo-section">
                     <h1 className="logo">
-                        <img src="/lobster-chef-v2.webp" alt="Chef Langosta - Arroz Amor" className="logo-full" />
+                        <img src="/lobster-chef-v2.webp" alt="Chef Langosta - Arroz Amor" className="logo-full" fetchpriority="high" decoding="async" />
                         {/* Arroz Amor */}
                     </h1>
                     <p className="tagline tagline-gourmet">
