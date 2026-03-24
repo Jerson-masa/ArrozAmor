@@ -1,4 +1,4 @@
-const CACHE_NAME = 'arroces-v1';
+const CACHE_NAME = 'arroces-v2';
 const urlsToCache = [
     '/',
     '/index.html',
