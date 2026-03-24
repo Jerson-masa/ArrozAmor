@@ -13,12 +13,28 @@ export function CartProvider({ children }) {
 
     const addToCart = useCallback((name, price) => {
         setCart(prev => {
-            const newCart = [...prev, { name, price }];
+            const existingItem = prev.find(item => item.name === name);
+            if (existingItem) {
+                return prev.map(item => 
+                    item.name === name ? { ...item, quantity: (item.quantity || 1) + 1 } : item
+                );
+            }
+            const newCart = [...prev, { name, price, quantity: 1 }];
             if (prev.length === 0 && typeof window !== 'undefined' && window.openCart) {
                 setTimeout(() => window.openCart(), 800); // Wait for flying animation to finish
             }
             return newCart;
         });
+    }, []);
+
+    const updateQuantity = useCallback((name, delta) => {
+        setCart(prev => prev.map(item => {
+            if (item.name === name) {
+                const newQuantity = (item.quantity || 1) + delta;
+                return { ...item, quantity: Math.max(0, newQuantity) };
+            }
+            return item;
+        }).filter(item => item.quantity > 0));
     }, []);
 
     const removeFromCart = useCallback((index) => {
@@ -29,11 +45,12 @@ export function CartProvider({ children }) {
         setCart([]);
     }, []);
 
-    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    const total = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
 
     const value = {
         cart,
         addToCart,
+        updateQuantity,
         removeFromCart,
         clearCart,
         total,
