@@ -16,6 +16,7 @@ export default function AdminPage() {
         menuItems, updateMenuItems, 
         whatsappNumber, updateWhatsappNumber,
         restaurantAddress, updateRestaurantAddress,
+        syncSettingsToCloud,
         whatsappOrdersCount, appDownloadsCount,
         isLoaded
     } = useAdmin();
@@ -37,10 +38,19 @@ export default function AdminPage() {
         }
     };
 
-    const handleSaveSettings = () => {
+    const handleSaveSettings = async () => {
+        setIsSaving(true);
         updateWhatsappNumber(formWhatsapp);
         updateRestaurantAddress(formAddress);
-        showToast('Configuraciones guardadas');
+        
+        // Sync to cloud so ALL users see the new settings
+        const result = await syncSettingsToCloud(formWhatsapp, formAddress);
+        if (result.success) {
+            showToast('✅ Configuración guardada en la nube para todos los usuarios');
+        } else {
+            showToast('⚠️ Guardado local OK, pero error al sincronizar: ' + (result.error || 'Desconocido'));
+        }
+        setIsSaving(false);
     };
 
     const handleUpdateMenuItem = (id, field, value) => {
@@ -75,16 +85,23 @@ export default function AdminPage() {
     const handleSyncToCloud = async () => {
         setIsSaving(true);
         try {
-            const res = await fetch('/api/menu/sync', {
+            // Sync menu items
+            const menuRes = await fetch('/api/menu/sync', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ menuItems })
             });
-            const data = await res.json();
-            if (res.ok) {
-                showToast('Cambios guardados en la nube exitosamente');
+            const menuData = await menuRes.json();
+
+            // Also sync settings (WhatsApp + Address)
+            const settingsResult = await syncSettingsToCloud(formWhatsapp || whatsappNumber, formAddress || restaurantAddress);
+
+            if (menuRes.ok && settingsResult.success) {
+                showToast('✅ Menú y configuración guardados en la nube para todos');
+            } else if (menuRes.ok) {
+                showToast('⚠️ Menú guardado, pero error al sincronizar configuración');
             } else {
-                showToast('Error al guardar: ' + (data.error || 'Desconocido'));
+                showToast('Error al guardar: ' + (menuData.error || 'Desconocido'));
             }
         } catch (error) {
             console.error(error);
@@ -177,9 +194,10 @@ export default function AdminPage() {
 
                     <button 
                         onClick={handleSaveSettings}
-                        style={{ padding: '0.75rem 1.5rem', background: '#ff6b00', color: '#fff', border: 'none', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer' }}
+                        disabled={isSaving}
+                        style={{ padding: '0.75rem 1.5rem', background: '#ff6b00', color: '#fff', border: 'none', borderRadius: '4px', fontWeight: 'bold', cursor: isSaving ? 'not-allowed' : 'pointer', opacity: isSaving ? 0.7 : 1 }}
                     >
-                        Guardar Configuración
+                        {isSaving ? 'Guardando en la nube...' : '☁️ Guardar Configuración'}
                     </button>
                 </div>
 

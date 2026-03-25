@@ -40,7 +40,8 @@ export function AdminProvider({ children }) {
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        const fetchCloudData = async () => {
+        // ─── Load Menu Items (Cloud → localStorage → defaults) ───
+        const fetchMenuFromCloud = async () => {
             try {
                 const res = await fetch('/api/menu');
                 if (res.ok) {
@@ -57,10 +58,32 @@ export function AdminProvider({ children }) {
             return false;
         };
 
-        const loadMenuItems = async () => {
-            // Priority: Cloud API -> LocalStorage -> Default
-            const cloudLoaded = await fetchCloudData();
-            if (!cloudLoaded) {
+        // ─── Load Settings (Cloud → localStorage → defaults) ───
+        const fetchSettingsFromCloud = async () => {
+            try {
+                const res = await fetch('/api/settings');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.whatsapp_number) {
+                        setWhatsappNumber(data.whatsapp_number);
+                        localStorage.setItem('arroz_whatsapp_number', data.whatsapp_number);
+                    }
+                    if (data.restaurant_address) {
+                        setRestaurantAddress(data.restaurant_address);
+                        localStorage.setItem('arroz_restaurant_address', data.restaurant_address);
+                    }
+                    return true;
+                }
+            } catch (err) {
+                console.error("Error fetching settings from cloud:", err);
+            }
+            return false;
+        };
+
+        const loadAll = async () => {
+            // Load menu
+            const menuCloudLoaded = await fetchMenuFromCloud();
+            if (!menuCloudLoaded) {
                 const savedMenuItems = localStorage.getItem('arroz_menu_items');
                 if (savedMenuItems) {
                     setMenuItems(JSON.parse(savedMenuItems));
@@ -69,34 +92,38 @@ export function AdminProvider({ children }) {
                     localStorage.setItem('arroz_menu_items', JSON.stringify(defaultMenuItems));
                 }
             }
+
+            // Load settings (WhatsApp + Address)
+            const settingsCloudLoaded = await fetchSettingsFromCloud();
+            if (!settingsCloudLoaded) {
+                const savedWhatsapp = localStorage.getItem('arroz_whatsapp_number');
+                const savedAddress = localStorage.getItem('arroz_restaurant_address');
+
+                if (savedWhatsapp) {
+                    setWhatsappNumber(savedWhatsapp);
+                } else {
+                    setWhatsappNumber('573001234567');
+                    localStorage.setItem('arroz_whatsapp_number', '573001234567');
+                }
+
+                if (savedAddress) {
+                    setRestaurantAddress(savedAddress);
+                } else {
+                    setRestaurantAddress('Mi Restaurante, Dirección Central');
+                    localStorage.setItem('arroz_restaurant_address', 'Mi Restaurante, Dirección Central');
+                }
+            }
+
+            // Load local-only counters
+            const savedOrders = localStorage.getItem('arroz_whatsapp_orders');
+            const savedDownloads = localStorage.getItem('arroz_app_downloads');
+            if (savedOrders) setWhatsappOrdersCount(parseInt(savedOrders) || 0);
+            if (savedDownloads) setAppDownloadsCount(parseInt(savedDownloads) || 0);
+
+            setIsLoaded(true);
         };
-        
-        loadMenuItems();
 
-        const savedWhatsapp = localStorage.getItem('arroz_whatsapp_number');
-        const savedAddress = localStorage.getItem('arroz_restaurant_address');
-
-        if (savedWhatsapp) {
-            setWhatsappNumber(savedWhatsapp);
-        } else {
-            setWhatsappNumber('573001234567'); // Default dummy number
-            localStorage.setItem('arroz_whatsapp_number', '573001234567');
-        }
-
-        if (savedAddress) {
-            setRestaurantAddress(savedAddress);
-        } else {
-            setRestaurantAddress('Mi Restaurante, Dirección Central');
-            localStorage.setItem('arroz_restaurant_address', 'Mi Restaurante, Dirección Central');
-        }
-
-        const savedOrders = localStorage.getItem('arroz_whatsapp_orders');
-        const savedDownloads = localStorage.getItem('arroz_app_downloads');
-
-        if (savedOrders) setWhatsappOrdersCount(parseInt(savedOrders) || 0);
-        if (savedDownloads) setAppDownloadsCount(parseInt(savedDownloads) || 0);
-
-        setIsLoaded(true);
+        loadAll();
     }, []);
 
     const updateMenuItems = (newItems) => {
@@ -112,6 +139,25 @@ export function AdminProvider({ children }) {
     const updateRestaurantAddress = (newAddress) => {
         setRestaurantAddress(newAddress);
         localStorage.setItem('arroz_restaurant_address', newAddress);
+    };
+
+    // ─── Cloud sync for settings (WhatsApp + Address) ───
+    const syncSettingsToCloud = async (whatsapp, address) => {
+        try {
+            const res = await fetch('/api/settings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    whatsapp_number: whatsapp,
+                    restaurant_address: address
+                })
+            });
+            const data = await res.json();
+            return res.ok ? { success: true } : { success: false, error: data.error };
+        } catch (error) {
+            console.error('Error syncing settings to cloud:', error);
+            return { success: false, error: error.message };
+        }
     };
 
     const incrementWhatsappOrders = () => {
@@ -137,6 +183,7 @@ export function AdminProvider({ children }) {
         updateWhatsappNumber,
         restaurantAddress,
         updateRestaurantAddress,
+        syncSettingsToCloud,
         whatsappOrdersCount,
         incrementWhatsappOrders,
         appDownloadsCount,
